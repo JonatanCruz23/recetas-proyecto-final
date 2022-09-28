@@ -3,24 +3,24 @@ export interface Receta {
     nombre:        string;
     descripcion:   string;
     portada:       string;
-    ingredientes: Ingrediente[];
-    pasos:        Paso[];
+    ingredientes:  Ingrediente[];
+    pasos:         Paso[];
     estado?:       boolean;
+    image?:        File;
     __v?:          number;
-  }
+}
   
- export interface Ingrediente {
+export interface Ingrediente {
     id:      number;
     nombre:  string;
     cantidad: number;
     unidad:   string;
     _id?:     string;
+}
   
-  }
-  
- export interface Paso {
+export interface Paso {
+    _id?:        string;
     descripcion: string;
-    _id?:         string;
     numero:      number;
     id:          number
-  }
+}

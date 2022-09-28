@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Receta, Ingrediente, Paso } from 'src/app/model/receta';
 import { RecetasService } from '../services/recetas.service';
-
-
 @Component({
   selector: 'app-registrar',
   templateUrl: './registrar.component.html',
   styleUrls: ['./registrar.component.css']
 })
+
 export class RegistrarComponent implements OnInit {
 
   constructor(public recetaService: RecetasService) { }
@@ -57,7 +56,6 @@ export class RegistrarComponent implements OnInit {
     }
   }
 
-
 ////////////////////agregar pasos///////////////////////////////
 
   numeroPaso!: number ;
@@ -89,11 +87,6 @@ export class RegistrarComponent implements OnInit {
     console.log(this.receta)
   }
 
-  subirImg(){
-
-  }
-
   //RESETEAR LOS ARREGLOS DE INGREDIENTES Y PASOS
-  //cabios realizados
   
 }

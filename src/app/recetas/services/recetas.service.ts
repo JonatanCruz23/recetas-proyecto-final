@@ -12,28 +12,23 @@ const httpOptions = {
 })
 export class RecetasService {
 
-  ruta= 'https://api-recetas-modulo-v.herokuapp.com/receta'
-
-
-  recetas: Receta[] = []
+  ruta = 'https://api-recetas-modulo-v.herokuapp.com/receta';
+  recetas: Receta[] = [];
 
   constructor(private http:HttpClient) { }
 
-  crearReceta(receta: Receta){
+  crearReceta(receta: Receta) {
     return this.http.post(this.ruta, receta, httpOptions);
   }
 
   getReceta(){
     return   this.http.get<Receta[]>(this.ruta, httpOptions).subscribe( response => {
-      console.log(response)
-      this.recetas = response
+      console.log(response);
+      this.recetas = response;
     })
   }
 
-  deleteReceta(_id: string){
+  deleteReceta(_id: string) {
     return this.http.delete(`${this.ruta}/${_id}`, httpOptions )
   }
-
-  
-  
 }
