@@ -101,5 +101,6 @@ export class RegistrarComponent implements OnInit {
   }
 
   //RESETEAR LOS ARREGLOS DE INGREDIENTES Y PASOS
+  //cabios realizados
   
 }
