@@ -12,24 +12,18 @@ export class RegistrarComponent implements OnInit {
 
   constructor(public recetaService: RecetasService) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
  //VARIABLES PARA GUARDAR INGREDIENTES
   nuevoIngredienteNombre: string = '';
   cantidad!: number 
   unidad!: string 
 
-
   receta: Receta = {
     nombre: '',
     descripcion: '',
-    portada: 'por defecto',
-    ingredientes: [
-   
-    ],
-    pasos: [
-     
-    ]
+    portada: '',
+    ingredientes: [],
+    pasos: []
   }
 
 // LOGUICA PARA AGREGAR INGREDIENTES
@@ -53,7 +47,7 @@ export class RegistrarComponent implements OnInit {
     this.receta.ingredientes.splice(index, 1);
   }
 
-  nuevaReceta(){
+  nuevaReceta() {
     for (let i = this.receta.ingredientes.length; i > 0; i--) {
       this.receta.ingredientes.pop();
     }
@@ -61,7 +55,6 @@ export class RegistrarComponent implements OnInit {
     for (let i = this.receta.pasos.length; i > 0; i--) {
       this.receta.pasos.pop();
     }
-    console.log('hola')
   }
 
 
