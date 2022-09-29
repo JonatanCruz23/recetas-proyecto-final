@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
 import { Receta, Ingrediente, Paso } from 'src/app/model/receta';
 import { RecetasService } from '../services/recetas.service';
 
@@ -10,15 +12,16 @@ import { RecetasService } from '../services/recetas.service';
 })
 export class RegistrarComponent implements OnInit {
 
-  constructor(public recetaService: RecetasService) { }
+  constructor(public recetaService: RecetasService, private router: Router) { }
+
 
   ngOnInit(): void {
+    this.recetaService.traerToken()
   }
  //VARIABLES PARA GUARDAR INGREDIENTES
   nuevoIngredienteNombre: string = '';
   cantidad!: number 
   unidad!: string 
-
 
   receta: Receta = {
     nombre: '',
@@ -53,6 +56,7 @@ export class RegistrarComponent implements OnInit {
     this.receta.ingredientes.splice(index, 1);
   }
 
+   //RESETEAR LOS ARREGLOS DE INGREDIENTES Y PASOS
   nuevaReceta(){
     for (let i = this.receta.ingredientes.length; i > 0; i--) {
       this.receta.ingredientes.pop();
@@ -65,7 +69,7 @@ export class RegistrarComponent implements OnInit {
   }
 
 
-////////////////////agregar pasos///////////////////////////////
+////////////////////agregar pasos/////////////////////////////
 
   numeroPaso!: number ;
   decripcionPaso!: string ;
@@ -88,19 +92,28 @@ export class RegistrarComponent implements OnInit {
   }
 
   guardar(receta: Receta) {
+    if (localStorage.getItem('token')){
+    
+    console.log('formulario posteado');
     this.recetaService.crearReceta(receta).subscribe(
       res => console.log(res),
-      err => console.log(err)
-    )
-    console.log('formulario posteado');
-    console.log(this.receta)
+      err => {
+        console.log(err)
+      //   if (err.error.statusCode == 401){
+      //     this.router.navigate(['login'])
+      // }
+      }
+    )}else{
+      this.router.navigate(['login'])
+    }
+    
   }
 
   subirImg(){
 
   }
 
-  //RESETEAR LOS ARREGLOS DE INGREDIENTES Y PASOS
+ 
   //cabios realizados
   
 }
