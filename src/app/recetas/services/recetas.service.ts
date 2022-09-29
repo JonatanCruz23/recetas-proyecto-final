@@ -1,10 +1,10 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Receta } from 'src/app/model/receta';
 
 const httpOptions = {
   headers: new HttpHeaders({
-    'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvIjoiZXNhdWciLCJpZCI6IjYzMmYzNzI1MjA3NDFjNmQyN2NhNjVjNCIsImlhdCI6MTY2NDMyNTY4OSwiZXhwIjoxNjY0MzY4ODg5fQ.8MXPIUfiIgWCgK2qweavIMSkkl7F1jHQx964BhmBx10'
+    'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvIjoiZXNhdWciLCJpZCI6IjYzMmYzNzI1MjA3NDFjNmQyN2NhNjVjNCIsImlhdCI6MTY2NDQzNTY1NSwiZXhwIjoxNjY0NDc4ODU1fQ.7sh3xT29Mu8PgLg0qwwiJNfAbzdPGd1JOK-nOkoLk6U'
   })
 };
 @Injectable({
@@ -18,7 +18,14 @@ export class RecetasService {
   constructor(private http:HttpClient) { }
 
   crearReceta(receta: Receta) {
-    return this.http.post(this.ruta, receta, httpOptions);
+    return this.http.post<Receta>(this.ruta, receta, httpOptions);
+  }
+
+  subirImagen(idReceta: string | undefined, image: File) {
+    const imageFormData = new FormData();
+    imageFormData.append('image', image, image?.name);
+
+    return this.http.post(`${this.ruta}/${idReceta}/upload`, imageFormData, httpOptions);
   }
 
   getReceta(){

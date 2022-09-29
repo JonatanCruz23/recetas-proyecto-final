@@ -17,6 +17,8 @@ export class RegistrarComponent implements OnInit {
   cantidad!: number 
   unidad!: string 
 
+  loadingSavebtn!: boolean;
+  uploadedImage!: File;
   receta: Receta = {
     nombre: '',
     descripcion: '',
@@ -78,10 +80,33 @@ export class RegistrarComponent implements OnInit {
     this.receta.pasos.splice(index, 1);
   }
 
+  onImagechange(event: any) {
+    this.uploadedImage = event.target.files[0];
+  }
+
   guardar(receta: Receta) {
+    this.loadingSavebtn = true;
     this.recetaService.crearReceta(receta).subscribe(
-      res => console.log(res),
-      err => console.log(err)
+      res => {
+        if(this.uploadedImage) {
+          this.recetaService.subirImagen(res._id, this.uploadedImage).subscribe(response => {
+            this.loadingSavebtn = false;
+            console.log(response);
+            console.log("Imagen subida correctamente!.");
+          },
+          err => {
+            this.loadingSavebtn = false;
+            console.log(err);
+          })
+        } else {
+          this.loadingSavebtn = false;
+          console.log(res);
+        }
+      },
+      err => {
+        this.loadingSavebtn = false;
+        console.log(err);
+      }
     )
     console.log('formulario posteado');
     console.log(this.receta)

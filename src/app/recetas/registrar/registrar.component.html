@@ -34,7 +34,7 @@
              <input class="form-control"
                     type="file"
                     placeholder="Imagen de receta"
-                    [(ngModel)]="receta.image"
+                    (change)="onImagechange($event)"
                     name="image" #fileUpload>
         </div>
     </div>
@@ -161,8 +161,9 @@
     <div class="row">
         <div class="col-sm-12">
             <button type="button" class="btn btn-success float-start" 
-                [disabled]="miFormulario.invalid" 
+                [disabled]="miFormulario.invalid || loadingSavebtn" 
                 (click)="guardar(receta)">
+                <span *ngIf="loadingSavebtn" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                 Guardar receta
             </button>
         </div>
