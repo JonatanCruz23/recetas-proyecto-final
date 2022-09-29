@@ -24,16 +24,17 @@ export class RecetasService {
 
   constructor(private http:HttpClient) { }
 
-   token: any = localStorage.getItem("token")
+   
 
   traerToken(){
     if (localStorage.getItem('token')){
+      return {
+        headers: new HttpHeaders({
+              'Authorization': `Bearer ${localStorage.getItem('token')}`
+             })
+      }
     }
-    return {
-      headers: new HttpHeaders({
-            'Authorization': `Bearer ${this.token}`
-           })
-    }
+    else { return {}}
   }
 
   // METODO PARA
@@ -58,5 +59,4 @@ export class RecetasService {
     return this.http.delete(`${this.ruta}/${_id}`, this.traerToken() )
   }
 
-  
 }
