@@ -1,173 +1,175 @@
 <app-side-menu></app-side-menu>
 <div class="container">
-    <form (ngSubmit)="guardar(receta, myForm)" autocomplete="off" #myForm="ngForm">
-        <div class="border border-success border-opacity-50 rounded p-3 mt-3">
-            <!-- Nombre -->
-            <h4 class="col">Datos generales</h4>
-            <div class="mb-3 row">
-                <label class="col-sm-3 col-form-label">Nombre</label>
-                <div class="col-sm-9">
-                    <input class="form-control"
-                           placeholder="Nombre de la receta"
-                           [(ngModel)]="receta.nombre"
-                           name="nombre"
-                           required>
-                </div>
-            </div>
-        
-            <!-- Descripcion -->
-            <div class="mb-3 row">
-                <label class="col-sm-3 col-form-label">Descripcion</label>
-                <div class="col-sm-9">
-                    <textarea name="" id="" cols="30" rows="4" class="form-control"
-                        placeholder="Descripcion de la receta"
-                        [(ngModel)]="receta.descripcion"
-                        name="nombre"
-                        required>
-                    </textarea>
-                </div>
-            </div>
-        
-            <!-- imagen -->
-            <div class="mb-3 row">
-                <label class="col-sm-3 col-form-label">Imagen</label>
-                <div class="col-sm-9">
-                     <input class="form-control"
-                            type="file"
-                            placeholder="Imagen de receta"
-                            (change)="onImagechange($event)"
-                            name="image" #fileUpload>
-                </div>
-            </div>
-        </div>
-        
-        <div class="border border-success border-opacity-50 rounded p-3 mt-3">
-            <!-- Agregar Favorito -->
-            <div class="mb-3 row">
-                <h4 class="col">Agregar ingredientes</h4>
-                <div class="col-sm-9">
-                    <div class="input-group">
+    <div class="row">
+        <form (ngSubmit)="guardar(receta, myForm)" autocomplete="off" #myForm="ngForm">
+            <div class="border border-success border-opacity-50 rounded p-3 mt-3">
+                <!-- Nombre -->
+                <h4 class="col">Datos generales</h4>
+                <div class="mb-3 row">
+                    <label class="col-sm-3 col-form-label">Nombre</label>
+                    <div class="col-sm-9">
                         <input class="form-control"
-                               placeholder="Nombre ingrediente"
-                               [(ngModel)]="nuevoIngredienteNombre"
-                               (keyup.enter)="agregarIngrediente()"
-                               name="nuevoJuego">
-        
-                        <input class="form-control"
-                               type="number"
-                               placeholder="Cantidad"
-                               [(ngModel)]="cantidad"
-                               (keyup.enter)="agregarIngrediente()"
-                               name="cantidad">
-        
-                        <input class="form-control"
-                               placeholder="Unidad de medida"
-                               [(ngModel)]="unidad"
-                               (keyup.enter)="agregarIngrediente()"
-                               name="cantidad">
-        
-                        <button class="btn btn-outline-primary"
-                                type="button"
-                                (click)="agregarIngrediente()">
-                                Añadir
-                        </button>
+                               placeholder="Nombre de la receta"
+                               [(ngModel)]="receta.nombre"
+                               name="nombre"
+                               required>
+                    </div>
+                </div>
+            
+                <!-- Descripcion -->
+                <div class="mb-3 row">
+                    <label class="col-sm-3 col-form-label">Descripcion</label>
+                    <div class="col-sm-9">
+                        <textarea name="" id="" cols="30" rows="4" class="form-control"
+                            placeholder="Descripcion de la receta"
+                            [(ngModel)]="receta.descripcion"
+                            name="nombre"
+                            required>
+                        </textarea>
+                    </div>
+                </div>
+            
+                <!-- imagen -->
+                <div class="mb-3 row">
+                    <label class="col-sm-3 col-form-label">Imagen</label>
+                    <div class="col-sm-9">
+                         <input class="form-control"
+                                type="file"
+                                placeholder="Imagen de receta"
+                                (change)="onImagechange($event)"
+                                name="image" #fileUpload>
                     </div>
                 </div>
             </div>
             
-            <!-- Lista de ingredientes -->
-            <div class="mb-3 row">
-                <label class="col-sm-3 col-form-label">Ingredientes</label>
-                <div class="col-sm-9">
-                    <div class="input-group mb-3" *ngFor="let ingrediente of receta.ingredientes; let i = index">
-                        <input [(ngModel)]="ingrediente.nombre" 
-                               name="favorito_{{ i }}" 
-                               class="form-control" 
-                               placeholder="Nombre ingrediente" required>
+            <div class="border border-success border-opacity-50 rounded p-3 mt-3">
+                <!-- Agregar Favorito -->
+                <div class="mb-3 row">
+                    <h4 class="col">Agregar ingredientes</h4>
+                    <div class="col-sm-9">
+                        <div class="input-group">
+                            <input class="form-control"
+                                   placeholder="Nombre ingrediente"
+                                   [(ngModel)]="nuevoIngredienteNombre"
+                                   (keyup.enter)="agregarIngrediente()"
+                                   name="nuevoJuego">
             
-                        <input [(ngModel)]="ingrediente.cantidad" 
-                               type="number" 
-                               name="favorito_{{ ingrediente.nombre  }}" 
-                               class="form-control" 
-                               placeholder="Cantidad" required>
+                            <input class="form-control"
+                                   type="number"
+                                   placeholder="Cantidad"
+                                   [(ngModel)]="cantidad"
+                                   (keyup.enter)="agregarIngrediente()"
+                                   name="cantidad">
             
-                        <input [(ngModel)]="ingrediente.unidad" 
-                               name="favorito_{{ ingrediente.unidad }}" 
-                               class="form-control" 
-                               placeholder="Unidad de medida" required>
-                               
-                        <button class="btn btn-outline-danger" 
-                                type="button" 
-                                (click)="eliminarIngrediente(i)">
-                                Eliminar
-                        </button>
+                            <input class="form-control"
+                                   placeholder="Unidad de medida"
+                                   [(ngModel)]="unidad"
+                                   (keyup.enter)="agregarIngrediente()"
+                                   name="cantidad">
+            
+                            <button class="btn btn-outline-primary"
+                                    type="button"
+                                    (click)="agregarIngrediente()">
+                                    Añadir
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        
-        <div class="border border-success border-opacity-50 rounded p-3 mt-3 mb-3">
-            <!-- Agregar pasos -->
-            <div class="mb-3 row">
-                <h4 class="col">Agregar pasos</h4>
                 
-                <div class="col-sm-9">
-        
-                    <div class="input-group">
-                        <input class="form-control"
-                               type="number"
-                               placeholder="N° de paso"
-                               [(ngModel)]="numeroPaso"
-                               (keyup.enter)="agregarPasos()"
-                               name="nuevoJuego2">
-        
-                        <input class="form-control"
-                               placeholder="descripcion"
-                               [(ngModel)]="decripcionPaso"
-                               (keyup.enter)="agregarPasos()"
-                               name="cantidad2">
-        
-                        <button class="btn btn-outline-primary"
-                                type="button"
-                                (click)="agregarPasos()">
-                                Añadir
-                        </button>
+                <!-- Lista de ingredientes -->
+                <div class="mb-3 row">
+                    <label class="col-sm-3 col-form-label">Ingredientes</label>
+                    <div class="col-sm-9">
+                        <div class="input-group mb-3" *ngFor="let ingrediente of receta.ingredientes; let i = index">
+                            <input [(ngModel)]="ingrediente.nombre" 
+                                   name="favorito_{{ i }}" 
+                                   class="form-control" 
+                                   placeholder="Nombre ingrediente" required>
+                
+                            <input [(ngModel)]="ingrediente.cantidad" 
+                                   type="number" 
+                                   name="favorito_{{ ingrediente.nombre  }}" 
+                                   class="form-control" 
+                                   placeholder="Cantidad" required>
+                
+                            <input [(ngModel)]="ingrediente.unidad" 
+                                   name="favorito_{{ ingrediente.unidad }}" 
+                                   class="form-control" 
+                                   placeholder="Unidad de medida" required>
+                                   
+                            <button class="btn btn-outline-danger" 
+                                    type="button" 
+                                    (click)="eliminarIngrediente(i)">
+                                    Eliminar
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
-        
-            <div class="mb-3 row">
-                <label class="col-sm-3 col-form-label">Pasos</label>
-                <div class="col-sm-9">
-                    <div class="input-group mb-3" *ngFor="let pasos of receta.pasos; let i = index">
-                        <input [(ngModel)]="pasos.numero" 
-                               type="number" 
-                               name="paso_{{ i }}" 
-                               class="form-control" 
-                               placeholder="N° de paso" required>
-        
-                        <input [(ngModel)]="pasos.descripcion" 
-                               name="paso_{{ pasos.descripcion }}" 
-                               class="form-control" 
-                               placeholder="descripcion" required>
-        
-                        <button class="btn btn-outline-danger" 
-                                type="button" 
-                                (click)="eliminarPaso(i)">
-                                Eliminar
-                        </button>
+            
+            <div class="border border-success border-opacity-50 rounded p-3 mt-3 mb-3">
+                <!-- Agregar pasos -->
+                <div class="mb-3 row">
+                    <h4 class="col">Agregar pasos</h4>
+                    
+                    <div class="col-sm-9">
+            
+                        <div class="input-group">
+                            <input class="form-control"
+                                   type="number"
+                                   placeholder="N° de paso"
+                                   [(ngModel)]="numeroPaso"
+                                   (keyup.enter)="agregarPasos()"
+                                   name="nuevoJuego2">
+            
+                            <input class="form-control"
+                                   placeholder="descripcion"
+                                   [(ngModel)]="decripcionPaso"
+                                   (keyup.enter)="agregarPasos()"
+                                   name="cantidad2">
+            
+                            <button class="btn btn-outline-primary"
+                                    type="button"
+                                    (click)="agregarPasos()">
+                                    Añadir
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="mb-3 row">
+                    <label class="col-sm-3 col-form-label">Pasos</label>
+                    <div class="col-sm-9">
+                        <div class="input-group mb-3" *ngFor="let pasos of receta.pasos; let i = index">
+                            <input [(ngModel)]="pasos.numero" 
+                                   type="number" 
+                                   name="paso_{{ i }}" 
+                                   class="form-control" 
+                                   placeholder="N° de paso" required>
+            
+                            <input [(ngModel)]="pasos.descripcion" 
+                                   name="paso_{{ pasos.descripcion }}" 
+                                   class="form-control" 
+                                   placeholder="descripcion" required>
+            
+                            <button class="btn btn-outline-danger" 
+                                    type="button" 
+                                    (click)="eliminarPaso(i)">
+                                    Eliminar
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-12">
-                <button type="submit" class="btn btn-success float-start mb-3" 
-                    [disabled]="myForm.invalid || loadingSavebtn">
-                    <span *ngIf="loadingSavebtn" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                    Guardar receta
-                </button>
+            <div class="row">
+                <div class="col-sm-12">
+                    <button type="submit" class="btn btn-success float-start mb-3" 
+                        [disabled]="myForm.invalid || loadingSavebtn">
+                        <span *ngIf="loadingSavebtn" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        Guardar receta
+                    </button>
+                </div>
             </div>
-        </div>
-    </form>
+        </form>
+    </div>
 </div>

@@ -9,13 +9,15 @@ import { AppComponent } from './app.component';
 import { RegistrarComponent } from './recetas/registrar/registrar.component';
 import { LoginComponent } from './recetas/login/login.component';
 import { SideMenuComponent } from './side-menu/side-menu.component';
+import { ListadoTablaComponent } from './recetas/listado-tabla/listado-tabla.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RegistrarComponent,
     LoginComponent,
-    SideMenuComponent
+    SideMenuComponent,
+    ListadoTablaComponent
   ],
   imports: [
     BrowserModule,

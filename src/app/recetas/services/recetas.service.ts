@@ -56,14 +56,11 @@ export class RecetasService {
   }
 
   getReceta(){
-    return   this.http.get<Receta[]>(this.ruta, this.traerToken()).subscribe( response => {
-      console.log(response)
-      this.recetas = response
-    })
+    return this.http.get<Receta[]>(this.ruta, this.traerToken());
   }
 
-  deleteReceta(_id: string){
-    return this.http.delete(`${this.ruta}/${_id}`, this.traerToken() )
+  deleteReceta(_id: string | undefined){
+    return this.http.delete<Receta>(`${this.ruta}/${_id}`, this.traerToken());
   }
 
 }

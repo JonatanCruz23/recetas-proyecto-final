@@ -1,0 +1,41 @@
+<app-side-menu></app-side-menu>
+
+<div class="container">
+    <div class="mt-3">
+        <h4 class="h4">Lista de recetas</h4>
+        <table class="table caption-top rounded-top">
+            <thead class="table-dark rounded-top">
+                <tr>
+                    <th scope="col">Imagen</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Descripción</th>
+                    <th scope="col">Editar</th>
+                    <th scope="col">Eliminar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let receta of recetas">
+                    <td>
+                        <a [href]="receta.portada" target="_blank">
+                            <img [src]="receta.portada" class="rounded" alt="imagen portada" height="50">
+                        </a>
+                    </td>
+                    <td>
+                        <a [href]="receta._id" class="label-nombre">{{ receta.nombre }}</a>
+                    </td>
+                    <td>{{ receta.descripcion }}</td>
+                    <td class="col-buttons">
+                        <button class="btn btn-outline-danger" (click)="eliminarReceta(receta._id)">
+                            Eliminar
+                        </button>
+                    </td>
+                    <td class="col-buttons">
+                        <button class="btn btn-outline-primary" (click)="editarReceta(receta._id)">
+                            Editar
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

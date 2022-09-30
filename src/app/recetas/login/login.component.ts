@@ -23,9 +23,9 @@ export class LoginComponent implements OnInit {
     this.closeSsesion();
   }
 
-  verificarToken(){
+  verificarToken() {
     if (localStorage.getItem('token')){
-      this.router.navigate(['registro'])
+      this.router.navigate(['listado'])
     }
   }
   
@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit {
         console.log('constraseña incorrecta');
       } else {
         localStorage.setItem("token", dateResponse.access_token)
-        this.router.navigate(['registro'])
+        this.router.navigate(['listado'])
         console.log(dateResponse.access_token)
       }
       console.log(data)
