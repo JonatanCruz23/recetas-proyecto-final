@@ -16,7 +16,7 @@ export class RegistrarComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.recetaService.traerToken()
+    this.recetaService.traerToken();
   }
  //VARIABLES PARA GUARDAR INGREDIENTES
   nuevoIngredienteNombre: string = '';

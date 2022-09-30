@@ -20,13 +20,17 @@ export class LoginComponent implements OnInit {
   constructor(private api: RecetasService, private router: Router) { }
 
   ngOnInit(): void {
-    this.verificarToken()
+    this.closeSsesion();
   }
 
   verificarToken(){
     if (localStorage.getItem('token')){
       this.router.navigate(['registro'])
     }
+  }
+  
+  closeSsesion() {
+    localStorage.removeItem('token');
   }
 
   erroresStado: boolean = false
@@ -44,7 +48,7 @@ export class LoginComponent implements OnInit {
       } else if (dateResponse == false) {
         this.mensajeError = 'Password incorrecta!'
         this.erroresStado = true
-        console.log('constraseña incorecta')
+        console.log('constraseña incorrecta');
       } else {
         localStorage.setItem("token", dateResponse.access_token)
         this.router.navigate(['registro'])
