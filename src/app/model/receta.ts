@@ -6,6 +6,7 @@ export interface Receta {
     ingredientes:  Ingrediente[];
     pasos:         Paso[];
     estado?:       boolean;
+    image?:        File;
     __v?:          number;
 }
   

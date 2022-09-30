@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgForm } from '@angular/forms';
 
 import { Receta, Ingrediente, Paso } from 'src/app/model/receta';
 import { RecetasService } from '../services/recetas.service';
@@ -53,7 +54,10 @@ export class RegistrarComponent implements OnInit {
     this.receta.ingredientes.splice(index, 1);
   }
 
-  nuevaReceta() {
+  clearReceta(form: NgForm) {
+    this.loadingSavebtn = false;
+
+    form.resetForm();
     for (let i = this.receta.ingredientes.length; i > 0; i--) {
       this.receta.ingredientes.pop();
     }
@@ -77,9 +81,9 @@ export class RegistrarComponent implements OnInit {
     }
 
     this.receta.pasos.push({ ...nuevoPaso });
-    this.numeroPaso = 1 ;
+    this.numeroPaso = 1;
     this.decripcionPaso = '';
-    console.log(this.receta)
+    console.log(this.receta);
   }
 
   eliminarPaso( index: number ) {
@@ -90,7 +94,7 @@ export class RegistrarComponent implements OnInit {
     this.uploadedImage = event.target.files[0];
   }
 
-  guardar(receta: Receta) {
+  guardar(receta: Receta, form: NgForm) {
     if (!localStorage.getItem('token')) return this.router.navigate(['login'])
 
     this.loadingSavebtn = true;
@@ -98,21 +102,21 @@ export class RegistrarComponent implements OnInit {
       res => {
         if(this.uploadedImage) {
           this.recetaService.subirImagen(res._id, this.uploadedImage).subscribe(response => {
-            this.loadingSavebtn = false;
+            this.clearReceta(form);
             console.log(response);
             console.log("Imagen subida correctamente!.");
           },
           err => {
-            this.loadingSavebtn = false;
+            this.clearReceta(form);
             console.log(err);
           });
         } else {
-          this.loadingSavebtn = false;
+          this.clearReceta(form);
           console.log(res);
         }
       },
       err => {
-        this.loadingSavebtn = false;
+        this.clearReceta(form);
         console.log(err);
       }
     )
