@@ -16,13 +16,13 @@ export class SideMenuComponent implements OnInit {
 
   cambiarStado(){
     if (localStorage.getItem('token')){
-      this.loginEstado = 'Serrar seción'
+      this.loginEstado = 'Cerrar sessioón'
       this.listado = 'Listado'
       this.nuevaReceta = 'Nueva receta'
     }else{
       this.listado = ''
       this.nuevaReceta = ''
-      this.loginEstado = 'Registrarse'
+      this.loginEstado = 'Login'
     }
   }
 
