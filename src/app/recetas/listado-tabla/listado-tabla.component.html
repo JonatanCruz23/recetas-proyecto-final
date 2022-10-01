@@ -21,7 +21,7 @@
                         </a>
                     </td>
                     <td>
-                        <a [href]="receta._id" class="label-nombre">{{ receta.nombre }}</a>
+                        <a [href]="'registro/' + receta._id" class="label-nombre">{{ receta.nombre }}</a>
                     </td>
                     <td>{{ receta.descripcion }}</td>
                     <td class="col-buttons">
@@ -30,9 +30,11 @@
                         </button>
                     </td>
                     <td class="col-buttons">
-                        <button class="btn btn-outline-primary" (click)="editarReceta(receta._id)">
-                            Editar
-                        </button>
+                        <a [href]="'registro/' + receta._id">
+                            <button class="btn btn-outline-primary">
+                                Editar
+                            </button>
+                        </a>
                     </td>
                 </tr>
             </tbody>

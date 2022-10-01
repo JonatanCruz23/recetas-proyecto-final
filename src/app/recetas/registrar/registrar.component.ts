@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 import { Receta, Ingrediente, Paso } from 'src/app/model/receta';
 import { RecetasService } from '../services/recetas.service';
@@ -11,12 +12,18 @@ import { RecetasService } from '../services/recetas.service';
 })
 
 export class RegistrarComponent implements OnInit {
+  
+  id = '';
+  paramsSubscription: Subscription = new Subscription;
 
-  constructor(public recetaService: RecetasService, private router: Router) { }
-
+  constructor(public recetaService: RecetasService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     this.recetaService.traerToken();
+    this.paramsSubscription = this.route.params.subscribe(params => {
+      this.id = params['id'];
+    });
+    if(this.id) this.getReceta(this.id);
   }
  //VARIABLES PARA GUARDAR INGREDIENTES
   nuevoIngredienteNombre: string = '';
@@ -24,6 +31,8 @@ export class RegistrarComponent implements OnInit {
   unidad!: string 
 
   loadingSavebtn!: boolean;
+  loadingEditbtn!: boolean;
+  imagenCambiada!: boolean;
   uploadedImage!: File;
   receta: Receta = {
     nombre: '',
@@ -54,10 +63,11 @@ export class RegistrarComponent implements OnInit {
     this.receta.ingredientes.splice(index, 1);
   }
 
-  clearReceta(form: NgForm) {
+  clearReceta(form: NgForm, reset: boolean) {
     this.loadingSavebtn = false;
-
-    form.resetForm();
+    this.loadingEditbtn = false;
+    this.imagenCambiada = false;
+    if(reset) form.resetForm();
     for (let i = this.receta.ingredientes.length; i > 0; i--) {
       this.receta.ingredientes.pop();
     }
@@ -91,35 +101,83 @@ export class RegistrarComponent implements OnInit {
   }
 
   onImagechange(event: any) {
+    this.imagenCambiada = true;
     this.uploadedImage = event.target.files[0];
   }
 
   guardar(receta: Receta, form: NgForm) {
     if (!localStorage.getItem('token')) return this.router.navigate(['login'])
+    if(this.id) {
+      return this.actualizarReceta(receta, form);
+    } else {
+      return this.crearReceta(receta, form);
+    }
 
+  }
+
+  crearReceta(receta: Receta, form: NgForm) {
     this.loadingSavebtn = true;
-      return this.recetaService.crearReceta(receta).subscribe(
+    return this.recetaService.crearReceta(receta).subscribe(
       res => {
         if(this.uploadedImage) {
           this.recetaService.subirImagen(res._id, this.uploadedImage).subscribe(response => {
-            this.clearReceta(form);
+            this.clearReceta(form, true);
             console.log(response);
             console.log("Imagen subida correctamente!.");
           },
           err => {
-            this.clearReceta(form);
+            this.clearReceta(form, true);
             console.log(err);
           });
         } else {
-          this.clearReceta(form);
+          this.clearReceta(form, true);
           console.log(res);
         }
       },
       err => {
-        this.clearReceta(form);
+        this.clearReceta(form, true);
         console.log(err);
       }
     )
+  }
+
+  actualizarReceta(receta: Receta, form: NgForm) {
+    this.loadingEditbtn = true;
+    return this.recetaService.actualizarReceta(receta, this.id).subscribe(
+      res => {
+        if(this.uploadedImage) {
+          this.receta = res;
+          this.recetaService.subirImagen(res._id, this.uploadedImage).subscribe(response => {
+            this.receta.portada = response.portada;
+            this.clearReceta(form, false);
+            console.log(response);
+            console.log("Imagen subida correctamente!.");
+          },
+          err => {
+            this.clearReceta(form, false);
+            console.log(err);
+          });
+        } else {
+          this.clearReceta(form, false);
+          console.log(res);
+        }
+      },
+      err => {
+        this.clearReceta(form, false);
+        console.log(err);
+      }
+    )
+  }
+
+  getReceta(id :string) {
+    return this.recetaService.getRecetaId(id).subscribe(
+      res => {
+        this.receta = res;
+      },
+      err => {
+        console.log(err);
+      }
+    );
   }
 
   //RESETEAR LOS ARREGLOS DE INGREDIENTES Y PASOS

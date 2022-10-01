@@ -48,15 +48,23 @@ export class RecetasService {
     return this.http.post<Receta>(this.ruta, receta, this.traerToken());
   }
 
+  actualizarReceta(receta: Receta, id: string){
+    return this.http.put<Receta>(`${this.ruta}/${id}`, receta, this.traerToken());
+  }
+
   subirImagen(idReceta: string | undefined, image: File) {
     const imageFormData = new FormData();
     imageFormData.append('image', image, image?.name);
 
-    return this.http.post(`${this.ruta}/${idReceta}/upload`, imageFormData, this.traerToken());
+    return this.http.post<Receta>(`${this.ruta}/${idReceta}/upload`, imageFormData, this.traerToken());
   }
 
   getReceta(){
     return this.http.get<Receta[]>(this.ruta, this.traerToken());
+  }
+
+  getRecetaId(id: string) {
+    return this.http.get<Receta>(`${this.ruta}/${id}`, this.traerToken());
   }
 
   deleteReceta(_id: string | undefined){
