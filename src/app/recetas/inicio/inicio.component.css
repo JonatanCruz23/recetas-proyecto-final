@@ -1,0 +1,29 @@
+app-inicio {
+    background-color: #18222C !important;
+}
+
+.custom-title-carrusel {
+    font-size: calc(2.2rem + 1.5vw) !important;
+}
+
+.custom-description-carrusel {
+    font-size: calc(2.2rem + 1.5vw) !important;
+}
+
+.custom-card {
+    background-color: #313D49;
+    border-radius: 10px;
+    border: 1px solid #C1C1C1;
+}
+
+.custom-card-title {
+    color: #e9dddd;
+}
+
+.custom-card-secondary-title {
+    color: #FF7F4D;
+}
+
+/*.accordion-item {
+    border: solid 1px red;
+}*/

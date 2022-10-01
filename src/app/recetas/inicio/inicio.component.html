@@ -1,8 +1,106 @@
 <app-side-menu></app-side-menu>
+<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  </div>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="https://wallpaperaccess.com/full/2461288.jpg" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <h1 class="custom-title-carrusel">First slide label</h1>
+        <h3>Some representative placeholder content for the first slide.</h3>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="https://wallpaperaccess.com/full/2461293.jpg" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <h1 class="custom-title-carrusel">Second slide label</h1>
+        <h3>Some representative placeholder content for the second slide.</h3>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="https://wallpaperaccess.com/full/2461301.jpg" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <h1 class="custom-title-carrusel">Third slide label</h1>
+        <h3>Some representative placeholder content for the third slide.</h3>
+      </div>
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Anterior</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Siguiente</span>
+  </button>
+</div>
 
-<div class="container mt-4" *ngFor="let receta of recetas">
+<div class="container custom-card mt-4 p-4 mt-4" *ngFor="let receta of recetas">
   <div class="row">
-    <div class="row">
+    <h3 class="text-capitalize custom-card-title">{{receta.nombre}}</h3>
+    <div class="col-md-12 mt-2">
+      <div class="row">
+        <div class="col-md-7">
+          <div class="card">
+            <img [src]="receta.portada"
+              class="card-img-top" alt="...">
+          </div>
+        </div>
+        <div class="col-md-5">
+          <h5 class="custom-card-description custom-card-secondary-title">Descripción.</h5>
+          <p>{{receta.descripcion}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="row">
+        <div class="col-md-7 mt-3">
+          <h5 class="custom-card-secondary-title">Ingredientes.</h5>
+          <table class="table caption-top">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">Unidad</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let ingrediente of receta.ingredientes; let i = index;">
+                <th scope="row">{{i + 1}}</th>
+                <td>{{ingrediente.nombre}}</td>
+                <td>{{ingrediente.cantidad}}</td>
+                <td>{{ingrediente.unidad}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="col-md-5 mt-3">
+          <h5 class="custom-card-secondary-title">Pasos de preparación.</h5>
+
+          <div class="accordion" id="accordionReceta_{{receta._id}}">
+            <div class="accordion-item border border-opacity-25 border-primary" *ngFor="let paso of receta.pasos; let i = index">
+              <h2 class="accordion-header" [id]="'heading_' + paso._id">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapse_' + paso._id"
+                  aria-expanded="false" [attr.aria-controls]="'collapse_' + paso._id">
+                  Paso #{{paso.numero}}
+                </button>
+              </h2>
+              <div [id]="'collapse_' + paso._id" class="accordion-collapse collapse" [attr.aria-labelledby]="'heading_' + paso._id" [attr.data-bs-parent]="'#accordionReceta_'+receta._id">
+                <div class="accordion-body">
+                  <p class="font-weight">- {{paso.descripcion}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div class="row">
       <div class="col">
         <h2>{{receta.nombre}}</h2>
       </div>
@@ -11,12 +109,12 @@
       <div class="card">
         <img [src]="receta.portada"
           class="card-img-top" alt="...">
-        <div class="card-body">
-          <h6>{{receta.descripcion}}</h6>
-        </div>
       </div>
     </div>
-    <!-- INGREDIENTES AQUI -->
+
+     INGREDIENTES AQUI----------
+
+
     <div class="col-md">
       <table class="table caption-top">
         <caption>Ingredientes de la receta</caption>
@@ -29,86 +127,25 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let ingrediente of receta.ingredientes">
-            <th scope="row">°</th>
+          <tr *ngFor="let ingrediente of receta.ingredientes; let i = index;">
+            <th scope="row">{{i + 1}}</th>
             <td>{{ingrediente.nombre}}</td>
             <td>{{ingrediente.cantidad}}</td>
             <td>{{ingrediente.unidad}}</td>
           </tr>
-          
         </tbody>
       </table>
     </div>
 
-    <!-- PASOS DE PREPARACION AQUI -->
+    ------------ PASOS DE PREPARACION AQUI ----------
 
     <div class="row mt-4">
       <div class="col">
-        <h3>Pasos de preparacion</h3>
 
-        <div class="accordion" id="accordionExample">
-
-          <div class="accordion-item">
-            <h2 class="accordion-header" id="headingOne">
-              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
-                aria-expanded="true" aria-controls="collapseOne">
-                Descripcion del paso {{receta.pasos[0].numero}}
-              </button>
-            </h2>
-            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
-              data-bs-parent="#accordionExample">
-              <div class="accordion-body">
-               <p>{{receta.pasos[0].descripcion}}</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="accordion-item">
-            <h2 class="accordion-header" id="headingTwo">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                Accordion Item #2
-              </button>
-            </h2>
-            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
-              data-bs-parent="#accordionExample">
-              <div class="accordion-body">
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Praesentium labore dolores fugit enim dolor
-                  a sit atque vitae aspernatur beatae ratione, libero ut perferendis. Fugit exercitationem consequatur
-                  eius! Eius, rem.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="accordion-item">
-            <h2 class="accordion-header" id="headingThree">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                Accordion Item #3
-              </button>
-            </h2>
-            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
-              data-bs-parent="#accordionExample">
-              <div class="accordion-body">
-                <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse
-                plugin
-                adds the appropriate classes that we use to style each element. These classes control the overall
-                appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with
-                custom
-                CSS or overriding our default variables. It's also worth noting that just about any HTML can go within
-                the
-                <code>.accordion-body</code>, though the transition does limit overflow.
-              </div>
-            </div>
-          </div>
-
-        </div>
       </div>
-    </div>
+    </div> -->
 
   </div>
-    <hr>
-
 </div>
 
 
