@@ -6,7 +6,7 @@ import { LoginComponent } from './recetas/login/login.component';
 import { RegistrarComponent } from './recetas/registrar/registrar.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '', redirectTo: 'inicio', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'registro/:id', component: RegistrarComponent },
   { path: 'registro', component: RegistrarComponent },
