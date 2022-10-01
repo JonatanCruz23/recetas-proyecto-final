@@ -1,0 +1,114 @@
+<app-side-menu></app-side-menu>
+
+<div class="container mt-4" *ngFor="let receta of recetas">
+  <div class="row">
+    <div class="row">
+      <div class="col">
+        <h2>{{receta.nombre}}</h2>
+      </div>
+    </div>
+    <div class="col-md">
+      <div class="card">
+        <img [src]="receta.portada"
+          class="card-img-top" alt="...">
+        <div class="card-body">
+          <h6>{{receta.descripcion}}</h6>
+        </div>
+      </div>
+    </div>
+    <!-- INGREDIENTES AQUI -->
+    <div class="col-md">
+      <table class="table caption-top">
+        <caption>Ingredientes de la receta</caption>
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Cantidad</th>
+            <th scope="col">Unidad de medida</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let ingrediente of receta.ingredientes">
+            <th scope="row">°</th>
+            <td>{{ingrediente.nombre}}</td>
+            <td>{{ingrediente.cantidad}}</td>
+            <td>{{ingrediente.unidad}}</td>
+          </tr>
+          
+        </tbody>
+      </table>
+    </div>
+
+    <!-- PASOS DE PREPARACION AQUI -->
+
+    <div class="row mt-4">
+      <div class="col">
+        <h3>Pasos de preparacion</h3>
+
+        <div class="accordion" id="accordionExample">
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                aria-expanded="true" aria-controls="collapseOne">
+                Descripcion del paso {{receta.pasos[0].numero}}
+              </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+              data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+               <p>{{receta.pasos[0].descripcion}}</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingTwo">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                Accordion Item #2
+              </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+              data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Praesentium labore dolores fugit enim dolor
+                  a sit atque vitae aspernatur beatae ratione, libero ut perferendis. Fugit exercitationem consequatur
+                  eius! Eius, rem.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingThree">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                Accordion Item #3
+              </button>
+            </h2>
+            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+              data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse
+                plugin
+                adds the appropriate classes that we use to style each element. These classes control the overall
+                appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with
+                custom
+                CSS or overriding our default variables. It's also worth noting that just about any HTML can go within
+                the
+                <code>.accordion-body</code>, though the transition does limit overflow.
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+    <hr>
+
+</div>
+
+

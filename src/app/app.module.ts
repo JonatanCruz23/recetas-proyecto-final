@@ -10,6 +10,7 @@ import { RegistrarComponent } from './recetas/registrar/registrar.component';
 import { LoginComponent } from './recetas/login/login.component';
 import { SideMenuComponent } from './side-menu/side-menu.component';
 import { ListadoTablaComponent } from './recetas/listado-tabla/listado-tabla.component';
+import { InicioComponent } from './recetas/inicio/inicio.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { ListadoTablaComponent } from './recetas/listado-tabla/listado-tabla.com
     RegistrarComponent,
     LoginComponent,
     SideMenuComponent,
-    ListadoTablaComponent
+    ListadoTablaComponent,
+    InicioComponent
   ],
   imports: [
     BrowserModule,
